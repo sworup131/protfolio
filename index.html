@@ -1,25 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Sworup Subedi</title>
-</head>
-<body>
-<h1 style="
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Under Construction with Cursor</title>
+<style>
+body {
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  font-family: system-ui, sans-serif;
+  background: #1a1a1a;
+  color: #fff;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  cursor:none;
+}
+
+/* ===== Floating card ===== */
+.card {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  background: rgba(0,0,0,0.7);
+  padding: 40px 60px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card h1 {
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
   font-weight:bold;
-  text-align:center;
-">
+  line-height:1.6;
+}
+
+/* ===== Moving construction barriers ===== */
+.barrier {
+  position: absolute;
+  width: 120px;
+  height: 30px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ffcc00,
+    #ffcc00 15px,
+    #111 15px,
+    #111 30px
+  );
+  top: 80%;
+  animation: moveBarrier 4s linear infinite alternate;
+}
+
+.barrier.one { left:10%; animation-delay:0s; }
+.barrier.two { left:60%; animation-delay:1s; }
+.barrier.three { left:35%; animation-delay:2s; }
+
+@keyframes moveBarrier {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(80px); }
+}
+
+/* ===== Falling cones ===== */
+.cone {
+  position:absolute;
+  font-size:2rem;
+  animation: fallCone 3s linear infinite;
+}
+
+.cone.one { left:15%; animation-delay:0s; }
+.cone.two { left:50%; animation-delay:1s; }
+.cone.three { left:75%; animation-delay:2s; }
+
+@keyframes fallCone {
+  0% { top:-50px; transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+  100% { top:100vh; transform: rotate(30deg); }
+}
+
+/* ===== Caution signs (static) ===== */
+.sign {
+  position:absolute;
+  font-size:3rem;
+  top:10%;
+  left:20%;
+}
+
+.sign.two {
+  left:70%;
+}
+
+/* ===== Dust particles ===== */
+.particle {
+  position:absolute;
+  width:4px;
+  height:4px;
+  background: rgba(255,255,255,0.3);
+  border-radius:50%;
+  animation: drift 8s linear infinite;
+}
+
+.particle:nth-child(1){ left:20%; animation-delay:0s; }
+.particle:nth-child(2){ left:50%; animation-delay:2s; }
+.particle:nth-child(3){ left:70%; animation-delay:4s; }
+
+@keyframes drift {
+  0% { transform: translateY(0) translateX(0); opacity:1; }
+  50% { transform: translateY(-40px) translateX(20px); opacity:0.6; }
+  100% { transform: translateY(0) translateX(0); opacity:1; }
+}
+
+/* ===== Custom construction helmet cursor ===== */
+.cursor {
+  position: fixed;
+  width: 30px;
+  height: 20px;
+  background: #ffcc00;
+  border-radius: 50% 50% 10% 10%;
+  border: 2px solid #fff;
+  pointer-events: none;
+  transform: translate(-50%, -50%) rotate(0deg);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: tiltCursor 2s linear infinite;
+}
+
+.cursor::after {
+  content:"!";
+  color: #111;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+@keyframes tiltCursor {
+  0% { transform: translate(-50%, -50%) rotate(-5deg); }
+  50% { transform: translate(-50%, -50%) rotate(5deg); }
+  100% { transform: translate(-50%, -50%) rotate(-5deg); }
+}
+
+/* ===== Cursor trail rectangles ===== */
+.trail {
+  position: absolute;
+  width: 10px;
+  height: 6px;
+  background: #ffcc00;
+  opacity: 0.6;
+  pointer-events: none;
+  border-radius: 2px;
+  animation: fadeTrail 0.5s forwards;
+}
+
+@keyframes fadeTrail {
+  0% { opacity:0.6; transform: scale(1); }
+  100% { opacity:0; transform: scale(2); }
+}
+</style>
+</head>
+<body>
+
+<div class="barrier one"></div>
+<div class="barrier two"></div>
+<div class="barrier three"></div>
+
+<div class="cone one">🚧</div>
+<div class="cone two">🚧</div>
+<div class="cone three">🚧</div>
+
+<div class="sign">⚠️</div>
+<div class="sign two">⚠️</div>
+
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+
+<div class="card">
+<h1>
   🚧 Under Construction 🚧<br>
   This domain is warming up.<br>
   Code is compiling…<br>
   Coffee is brewing ☕
 </h1>
+</div>
+
+<div class="cursor"></div>
+
+<script>
+const cursor = document.querySelector(".cursor");
+
+document.addEventListener("mousemove", e => {
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+
+  // Trail effect
+  const trail = document.createElement("div");
+  trail.classList.add("trail");
+  trail.style.left = e.clientX + "px";
+  trail.style.top = e.clientY + "px";
+  document.body.appendChild(trail);
+  setTimeout(() => { trail.remove(); }, 500);
+});
+</script>
 
 </body>
 </html>
