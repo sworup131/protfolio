@@ -3,6 +3,6 @@ export const greetings = [
   'Bonjour',
   'Hola',
   'こんにちは',
-  'नमस्कार',
+  'नमस्ते',
 
 ]
