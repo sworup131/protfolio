@@ -1,0 +1,27 @@
+/* Perfectly Nineties + Custom Display — add licensed .woff2 files to public/fonts/ */
+@font-face {
+  font-family: 'Perfectly Nineties';
+  src: url('/fonts/perfectly-nineties-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Perfectly Nineties';
+  src: url('/fonts/perfectly-nineties-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/*
+ * Custom display font — add your .woff2 to public/fonts/custom-display.woff2
+ */
+@font-face {
+  font-family: 'Custom Display';
+  src: url('/fonts/custom-display.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
