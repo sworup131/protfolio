@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ContributionGraph from './components/ContributionGraph'
 import IntroLoader from './components/IntroLoader'
 import Navbar from './components/Navbar'
 import RevealSection from './components/RevealSection'
@@ -186,6 +187,31 @@ const sections = [
     ),
   },
   {
+    id: 'github',
+    content: (
+      <section
+        id="github"
+        className="border-t border-line bg-surface px-5 py-12 text-ink sm:px-6 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-50"
+      >
+        <div className="mx-auto max-w-xl">
+          <p className={labelClass}>GitHub</p>
+          <h2 className={headingClass}>Contributions</h2>
+          <div className="mt-5">
+            <ContributionGraph />
+          </div>
+          <a
+            href="https://github.com/sworup131"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-4 inline-block text-[0.85rem] text-ink underline decoration-line underline-offset-4 transition-opacity hover:opacity-70 dark:text-stone-200 dark:decoration-stone-700"
+          >
+            sworup131
+          </a>
+        </div>
+      </section>
+    ),
+  },
+  {
     id: 'connect',
     content: (
       <section
@@ -243,7 +269,11 @@ function App() {
             key={section.id}
             active={revealActive}
             immediate={section.id === 'hero' || section.id === 'about'}
-            still={section.id === 'projects' || section.id === 'connect'}
+            still={
+              section.id === 'projects' ||
+              section.id === 'github' ||
+              section.id === 'connect'
+            }
           >
             {section.content}
           </RevealSection>
